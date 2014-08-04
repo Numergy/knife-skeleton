@@ -32,9 +32,10 @@ module KnifeSkeleton
       if @name_args.length < 1
         show_usage
         ui.fatal('You must specify a cookbook name')
+        exit 1
       end
 
-      if default_cookbook_path_empty? && parameter_empty(config[:cookbook_path])
+      if parameter_empty?(config[:cookbook_path])
         fail ArgumentError, <<-eos
                              Default cookbook_path is not specified in the
                              knife.rb config file, and a value to -o is
@@ -44,16 +45,23 @@ module KnifeSkeleton
 
       cookbook_path = File.expand_path(Array(config[:cookbook_path]).first)
       cookbook_name = @name_args.first
-      # copyright = config[:cookbook_copyright] || 'YOUR_COMPANY_NAME'
-      # email = config[:cookbook_email] || 'YOUR_EMAIL'
-      # license = (
-      #            (config[:cookbook_license] != 'false') &&
-      #            config[:cookbook_license]) || 'none'
+      copyright = config[:cookbook_copyright] || 'YOUR_COMPANY_NAME'
+      email = config[:cookbook_email] || 'YOUR_EMAIL'
+      license = (
+                 (config[:cookbook_license] != 'false') &&
+                 config[:cookbook_license]) || 'none'
 
-      create_cookbook(cookbook_path, cookbook_name)
+      create_cookbook_directories(cookbook_path, cookbook_name)
+      create_cookbook_templates(
+        cookbook_path,
+        cookbook_name,
+        copyright,
+        email,
+        license
+      )
     end
 
-    def create_cookbook(cookbook_path, cookbook_name)
+    def create_cookbook_directories(cookbook_path, cookbook_name)
       msg("Create cookbook #{cookbook_name} into #{cookbook_path}")
       %w(
         definitions
@@ -73,6 +81,14 @@ module KnifeSkeleton
           )
         )
       end
+    end
+
+    def create_cookbook_templates(cookbook_path, cookbook_name, copyright, email, license)
+
+    end
+
+    def parameter_empty?(parameter)
+      parameter.nil? || parameter.empty?
     end
   end
 end

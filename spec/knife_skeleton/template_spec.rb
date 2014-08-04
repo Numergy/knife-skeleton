@@ -1,4 +1,5 @@
-require_relative 'spec_helper'
+require 'spec_helper'
+require 'knife_skeleton/template'
 
 module KnifeSkeleton
   describe "Template.render" do
