@@ -6,6 +6,6 @@ require 'rspec/expectations'
 require 'chefspec'
 require 'chefspec/berkshelf'
 
-ChefSpec::Coverage.start! { add_filter '#{cookbook_name' }
+ChefSpec::Coverage.start! { add_filter '<%= cookbook_name %>' }
 
 require 'chef/application'

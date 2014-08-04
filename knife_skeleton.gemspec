@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.email         = ['pierre.rambaud@numergy.com']
   s.description   = %q{Knife plugin to generate skeleton with rubocop, chefspec, kitchen, etc...}
   s.summary       = s.description
-  s.homepage      = 'N/A'
+  s.homepage      = 'https://github.com/Numergy/knife-skeleton'
   s.license       = 'Apache 2.0'
 
   s.files         = `git ls-files`.split($\)
@@ -23,4 +23,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec', '~> 2.14'
   s.add_development_dependency 'rubocop'
   s.add_development_dependency 'simplecov'
+  s.add_development_dependency 'fakefs'
 end

@@ -1,5 +1,5 @@
-#{cookbook_name} Cookbook
-#{'='*"#{cookbook_name} Cookbook".length}
+<%= cookbook_name %> Cookbook
+<%= '='*"cookbook_name Cookbook".length %>
   TODO: Enter the cookbook description here.
 
   e.g.
@@ -9,27 +9,27 @@ Requirements
   TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
 
   e.g.
-  toaster         #{cookbook_name} needs toaster to brown your bagel.
+  toaster         <%= cookbook_name %> needs toaster to brown your bagel.
 
 Attributes
   TODO: List your cookbook attributes here.
 
-  #{cookbook_name}
+  <%= cookbook_name %>
   Key                                   Type        Description                           Default
-  ['#{cookbook_name}']['bacon']         Boolean     whether to include bacon              true
+  ['<%= cookbook_name %>']['bacon']         Boolean     whether to include bacon              true
 
 Usage
-  #{cookbook_name}
+  <%= cookbook_name %>
   TODO: Write usage instructions for each cookbook.
 
   e.g.
-  Just include `#{cookbook_name}` in your node's `run_list`:
+  Just include `<%= cookbook_name %>` in your node's `run_list`:
 
   [code]
   {
     "name":"my_node",
     "run_list": [
-      "recipe[#{cookbook_name}]"
+      "recipe[<%= cookbook_name %>]"
     ]
   }
   [/code]
