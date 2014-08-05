@@ -155,14 +155,15 @@ eos
     #
     # Returns void
     def create_cookbook_templates(params)
-      params[:license_content] = params[:license] != 'none' ?
-        File.read(
-          File.join(
-            files_directory,
-            'licenses',
-            params[:license]
-          )
-        ) : ''
+      params[:license_content] = File.read(
+        File.join(
+          files_directory,
+          'licenses',
+          params[:license]
+        )
+      ) if params[:license] != 'none'
+
+      params[:license_content] = '' unless params[:license] != 'none'
 
       %W(
         CHANGELOG.#{params[:readme_format]}
