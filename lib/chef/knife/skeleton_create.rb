@@ -155,10 +155,14 @@ eos
     #
     # Returns void
     def create_cookbook_templates(params)
-      template_directory = File.expand_path(
-        '../../../../templates',
-        Pathname.new(__FILE__).realpath
-      )
+      params[:license_content] = params[:license] != 'none' ?
+        File.read(
+          File.join(
+            files_directory,
+            'licenses',
+            params[:license]
+          )
+        ) : ''
 
       %W(
         CHANGELOG.#{params[:readme_format]}
@@ -171,7 +175,7 @@ eos
         test/integration/default/serverspec/spec_helper.rb
         test/integration/default/serverspec/default_spec.rb
       ).each do |file_name|
-        render_template(template_directory, file_name, params)
+        render_template(file_name, params)
       end
     end
 
@@ -189,10 +193,6 @@ eos
       cookbook_path,
       cookbook_name
     )
-      file_directory = File.expand_path(
-        '../../../../files',
-        Pathname.new(__FILE__).realpath
-      )
       %w(
         Berksfile
         Gemfile
@@ -200,23 +200,22 @@ eos
         .rubocop.yml
         Strainerfile
       ).each do |file_name|
-        copy_file(file_directory, cookbook_path, cookbook_name, file_name)
+        copy_file(cookbook_path, cookbook_name, file_name)
       end
     end
 
     # Protected: Copy files
     #
-    # file_directory - The tested parameter
-    # cookbook_path  - Cookbook path
-    # cookbook_name  - Cookbook name
-    # file_name      - File name to used without erb extension
+    # cookbook_path - Cookbook path
+    # cookbook_name - Cookbook name
+    # file_name     - File name to used without erb extension
     #
     # Examples:
     #
     #   copy_file('/tmp', '/cookbooks', 'my-cookbook', 'README.md')
     #
     # Returns void
-    def copy_file(file_directory, cookbook_path, cookbook_name, file_name)
+    def copy_file(cookbook_path, cookbook_name, file_name)
       dst = File.join(
         cookbook_path,
         cookbook_name,
@@ -229,7 +228,7 @@ eos
         ui.msg("Create '#{file_name}'")
         FileUtils.cp(
           File.join(
-            file_directory,
+            files_directory,
             file_name.gsub(/^\./, '')
           ),
           dst
@@ -239,16 +238,15 @@ eos
 
     # Protected: Render template
     #
-    # template_directory - The tested parameter
-    # file_name          - File name to used without erb extension
-    # params             - Binding parameters
+    # file_name - File name to used without erb extension
+    # params    - Binding parameters
     #
     # Examples:
     #
     #   render_template('/tmp', 'my-file.rb', { title: 'GoT' })
     #
     # Returns void
-    def render_template(template_directory, file_name, params)
+    def render_template(file_name, params)
       dst = File.join(
         params[:cookbook_path],
         params[:cookbook_name],
@@ -267,7 +265,7 @@ eos
             Template.render(
               File.read(
                 File.join(
-                  template_directory,
+                  templates_directory,
                   file_name + '.erb'
                 )
               ),
@@ -321,6 +319,26 @@ eos
     # Returns string
     def cookbook_readme_format
       ((config[:readme_format] != 'false') && config[:readme_format]) || 'md'
+    end
+
+    # Protected: Get files directory
+    #
+    # Returns string
+    def files_directory
+      File.expand_path(
+        '../../../../files',
+        Pathname.new(__FILE__).realpath
+      )
+    end
+
+    # Protected: Get templates directory
+    #
+    # Returns string
+    def templates_directory
+      File.expand_path(
+        '../../../../templates',
+        Pathname.new(__FILE__).realpath
+      )
     end
   end
 end
