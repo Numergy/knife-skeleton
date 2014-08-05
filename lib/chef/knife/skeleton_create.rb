@@ -19,7 +19,7 @@ eos
            short: '-r FORMAT',
            long: '--readme-format FORMAT',
            description: <<-eos
-Format of the README file, supported formats are 'md' and'rdoc'
+Format of the README file, supported formats are 'md', 'rdoc' and 'txt'
 eos
 
     option :cookbook_license,
@@ -200,16 +200,39 @@ eos
         .rubocop.yml
         Strainerfile
       ).each do |file_name|
+        copy_file(file_directory, cookbook_path, cookbook_name, file_name)
+      end
+    end
+
+    # Protected: Copy files
+    #
+    # file_directory - The tested parameter
+    # cookbook_path  - Cookbook path
+    # cookbook_name  - Cookbook name
+    # file_name      - File name to used without erb extension
+    #
+    # Examples:
+    #
+    #   copy_file('/tmp', '/cookbooks', 'my-cookbook', 'README.md')
+    #
+    # Returns void
+    def copy_file(file_directory, cookbook_path, cookbook_name, file_name)
+      dst = File.join(
+        cookbook_path,
+        cookbook_name,
+        file_name
+      )
+
+      if File.exist?(dst)
+        ui.warning("#{file_name} already exists")
+      else
+        ui.msg("Create '#{file_name}'")
         FileUtils.cp(
           File.join(
             file_directory,
             file_name.gsub(/^\./, '')
           ),
-          File.join(
-            cookbook_path,
-            cookbook_name,
-            file_name
-          )
+          dst
         )
       end
     end
@@ -226,25 +249,32 @@ eos
     #
     # Returns void
     def render_template(template_directory, file_name, params)
-      File.open(
-        File.join(
-          params[:cookbook_path],
-          params[:cookbook_name],
-          file_name
-        ),
-        'w+'
-      ) do |file|
-        file.write(
-          Template.render(
-            File.read(
-              File.join(
-                template_directory,
-                file_name + '.erb'
-              )
-            ),
-            params
+      dst = File.join(
+        params[:cookbook_path],
+        params[:cookbook_name],
+        file_name
+      )
+
+      if File.exist?(dst)
+        ui.warning("#{file_name} already exists")
+      else
+        ui.msg("Create '#{file_name}'")
+        File.open(
+          dst,
+          'w+'
+        ) do |file|
+          file.write(
+            Template.render(
+              File.read(
+                File.join(
+                  template_directory,
+                  file_name + '.erb'
+                )
+              ),
+              params
+            )
           )
-        )
+        end
       end
     end
 

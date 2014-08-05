@@ -163,6 +163,20 @@ describe KnifeSkeleton::SkeletonCreate do
         )
       )
       @knife.ui.should_receive(:msg).with('Create cookbook foobar into /tmp')
+      @knife.ui.should_receive(:msg).with("Create 'Berksfile'")
+      @knife.ui.should_receive(:msg).with("Create 'Gemfile'")
+      @knife.ui.should_receive(:msg).with("Create '.gitignore'")
+      @knife.ui.should_receive(:msg).with("Create '.rubocop.yml'")
+      @knife.ui.should_receive(:msg).with("Create 'Strainerfile'")
+      @knife.ui.should_receive(:msg).with("Create 'CHANGELOG.md'")
+      @knife.ui.should_receive(:msg).with("Create '.kitchen.yml'")
+      @knife.ui.should_receive(:msg).with("Create 'metadata.rb'")
+      @knife.ui.should_receive(:msg).with("Create 'README.md'")
+      @knife.ui.should_receive(:msg).with("Create 'recipes/default.rb'")
+      @knife.ui.should_receive(:msg).with("Create 'spec/default_spec.rb'")
+      @knife.ui.should_receive(:msg).with("Create 'spec/spec_helper.rb'")
+      @knife.ui.should_receive(:msg).with("Create 'test/integration/default/serverspec/spec_helper.rb'")
+      @knife.ui.should_receive(:msg).with("Create 'test/integration/default/serverspec/default_spec.rb'")
       @knife.run
       %w(
         definitions
