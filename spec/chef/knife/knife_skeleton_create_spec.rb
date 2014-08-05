@@ -162,34 +162,36 @@ describe KnifeSkeleton::SkeletonCreate do
           Pathname.new(__FILE__).realpath
         )
       )
-      @knife.ui.should_receive(:msg).with('Create cookbook foobar into /tmp')
-      @knife.ui.should_receive(:msg).with("Create 'Berksfile'")
-      @knife.ui.should_receive(:msg).with("Create 'Gemfile'")
-      @knife.ui.should_receive(:msg).with("Create '.gitignore'")
-      @knife.ui.should_receive(:msg).with("Create '.rubocop.yml'")
-      @knife.ui.should_receive(:msg).with("Create 'Strainerfile'")
-      @knife.ui.should_receive(:msg).with("Create 'CHANGELOG.md'")
-      @knife.ui.should_receive(:msg).with("Create '.kitchen.yml'")
-      @knife.ui.should_receive(:msg).with("Create 'metadata.rb'")
-      @knife.ui.should_receive(:msg).with("Create 'README.md'")
-      @knife.ui.should_receive(:msg).with("Create 'recipes/default.rb'")
-      @knife.ui.should_receive(:msg).with("Create 'spec/default_spec.rb'")
-      @knife.ui.should_receive(:msg).with("Create 'spec/spec_helper.rb'")
+      @knife.ui.should_receive(:msg).with('** Create cookbook foobar into /tmp')
+      @knife.ui.should_receive(:msg).with("** Create 'Berksfile'")
+      @knife.ui.should_receive(:msg).with("** Create 'Gemfile'")
+      @knife.ui.should_receive(:msg).with("** Create '.gitignore'")
+      @knife.ui.should_receive(:msg).with("** Create '.travis.yml'")
+      @knife.ui.should_receive(:msg).with("** Create '.rubocop.yml'")
+      @knife.ui.should_receive(:msg).with("** Create '.kitchen.yml'")
+      @knife.ui.should_receive(:msg).with("** Create 'Strainerfile'")
+      @knife.ui.should_receive(:msg).with("** Create 'CHANGELOG.md'")
+      @knife.ui.should_receive(:msg).with("** Create 'metadata.rb'")
+      @knife.ui.should_receive(:msg).with("** Create 'README.md'")
+      @knife.ui.should_receive(:msg).with("** Create 'recipes/default.rb'")
+      @knife.ui.should_receive(:msg).with("** Create 'spec/default_spec.rb'")
+      @knife.ui.should_receive(:msg).with("** Create 'spec/spec_helper.rb'")
       @knife.ui.should_receive(:msg).with(
-        "Create 'test/integration/default/serverspec/spec_helper.rb'")
+        "** Create 'test/integration/default/serverspec/spec_helper.rb'")
       @knife.ui.should_receive(:msg).with(
-        "Create 'test/integration/default/serverspec/default_spec.rb'")
+        "** Create 'test/integration/default/serverspec/default_spec.rb'")
       @knife.run
       # Run txice to tests warn
-      @knife.ui.should_receive(:msg).with('Create cookbook foobar into /tmp')
+      @knife.ui.should_receive(:msg).with('** Create cookbook foobar into /tmp')
       @knife.ui.should_receive(:warn).with("'Berksfile' already exists")
       @knife.ui.should_receive(:warn).with("'Gemfile' already exists")
       @knife.ui.should_receive(:warn).with("'.gitignore' already exists")
       @knife.ui.should_receive(:warn).with("'.rubocop.yml' already exists")
-      @knife.ui.should_receive(:warn).with("'Strainerfile' already exists")
-      @knife.ui.should_receive(:warn).with("'CHANGELOG.md' already exists")
       @knife.ui.should_receive(:warn).with("'.kitchen.yml' already exists")
+      @knife.ui.should_receive(:warn).with("'.travis.yml' already exists")
+      @knife.ui.should_receive(:warn).with("'Strainerfile' already exists")
       @knife.ui.should_receive(:warn).with("'metadata.rb' already exists")
+      @knife.ui.should_receive(:warn).with("'CHANGELOG.md' already exists")
       @knife.ui.should_receive(:warn).with("'README.md' already exists")
       @knife.ui.should_receive(:warn).with(
         "'recipes/default.rb' already exists")
@@ -217,14 +219,15 @@ describe KnifeSkeleton::SkeletonCreate do
       end
 
       %w(
+        metadata.rb
         Berksfile
         Gemfile
         .gitignore
         .rubocop.yml
+        .travis.yml
+        .kitchen.yml
         Strainerfile
         CHANGELOG.md
-        .kitchen.yml
-        metadata.rb
         README.md
         recipes/default.rb
         spec/default_spec.rb

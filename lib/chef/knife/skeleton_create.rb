@@ -123,7 +123,7 @@ eos
     #
     # Returns void
     def create_cookbook_directories(cookbook_path, cookbook_name)
-      ui.msg("Create cookbook #{cookbook_name} into #{cookbook_path}")
+      ui.msg("** Create cookbook #{cookbook_name} into #{cookbook_path}")
 
       %w(
         definitions
@@ -166,10 +166,10 @@ eos
       params[:license_content] = '' unless params[:license] != 'none'
 
       %W(
-        CHANGELOG.#{params[:readme_format]}
-        .kitchen.yml
         metadata.rb
+        CHANGELOG.#{params[:readme_format]}
         README.#{params[:readme_format]}
+        .kitchen.yml
         recipes/default.rb
         spec/default_spec.rb
         spec/spec_helper.rb
@@ -199,6 +199,7 @@ eos
         Gemfile
         .gitignore
         .rubocop.yml
+        .travis.yml
         Strainerfile
       ).each do |file_name|
         copy_file(cookbook_path, cookbook_name, file_name)
@@ -226,7 +227,7 @@ eos
       if File.exist?(dst)
         ui.warn("'#{file_name}' already exists")
       else
-        ui.msg("Create '#{file_name}'")
+        ui.msg("** Create '#{file_name}'")
         FileUtils.cp(
           File.join(
             files_directory,
@@ -257,7 +258,7 @@ eos
       if File.exist?(dst)
         ui.warn("'#{file_name}' already exists")
       else
-        ui.msg("Create '#{file_name}'")
+        ui.msg("** Create '#{file_name}'")
         File.open(
           dst,
           'w+'
