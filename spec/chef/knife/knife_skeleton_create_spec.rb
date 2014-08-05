@@ -175,8 +175,10 @@ describe KnifeSkeleton::SkeletonCreate do
       @knife.ui.should_receive(:msg).with("Create 'recipes/default.rb'")
       @knife.ui.should_receive(:msg).with("Create 'spec/default_spec.rb'")
       @knife.ui.should_receive(:msg).with("Create 'spec/spec_helper.rb'")
-      @knife.ui.should_receive(:msg).with("Create 'test/integration/default/serverspec/spec_helper.rb'")
-      @knife.ui.should_receive(:msg).with("Create 'test/integration/default/serverspec/default_spec.rb'")
+      @knife.ui.should_receive(:msg).with(
+        "Create 'test/integration/default/serverspec/spec_helper.rb'")
+      @knife.ui.should_receive(:msg).with(
+        "Create 'test/integration/default/serverspec/default_spec.rb'")
       @knife.run
       # Run txice to tests warn
       @knife.ui.should_receive(:msg).with('Create cookbook foobar into /tmp')
@@ -189,11 +191,16 @@ describe KnifeSkeleton::SkeletonCreate do
       @knife.ui.should_receive(:warn).with("'.kitchen.yml' already exists")
       @knife.ui.should_receive(:warn).with("'metadata.rb' already exists")
       @knife.ui.should_receive(:warn).with("'README.md' already exists")
-      @knife.ui.should_receive(:warn).with("'recipes/default.rb' already exists")
-      @knife.ui.should_receive(:warn).with("'spec/default_spec.rb' already exists")
-      @knife.ui.should_receive(:warn).with("'spec/spec_helper.rb' already exists")
-      @knife.ui.should_receive(:warn).with("'test/integration/default/serverspec/spec_helper.rb' already exists")
-      @knife.ui.should_receive(:warn).with("'test/integration/default/serverspec/default_spec.rb' already exists")
+      @knife.ui.should_receive(:warn).with(
+        "'recipes/default.rb' already exists")
+      @knife.ui.should_receive(:warn).with(
+        "'spec/default_spec.rb' already exists")
+      @knife.ui.should_receive(:warn).with(
+        "'spec/spec_helper.rb' already exists")
+      @knife.ui.should_receive(:warn).with(
+        "'test/integration/default/serverspec/spec_helper.rb' already exists")
+      @knife.ui.should_receive(:warn).with(
+        "'test/integration/default/serverspec/default_spec.rb' already exists")
       @knife.run
 
       %w(

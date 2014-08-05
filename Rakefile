@@ -7,9 +7,7 @@ require 'rubocop/rake_task'
 CLEAN.include 'pkg'
 
 desc 'Run RuboCop on the lib directory'
-RuboCop::RakeTask.new(:rubocop) do |task|
-  task.patterns = ['lib/**/*.rb']
-end
+RuboCop::RakeTask.new(:rubocop)
 
 desc 'Run Rspec tests'
 RSpec::Core::RakeTask.new(:spec) do |t|
