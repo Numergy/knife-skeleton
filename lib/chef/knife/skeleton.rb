@@ -11,29 +11,37 @@ module KnifeSkeleton
     option :cookbook_path,
            short: '-o PATH',
            long: '--cookbook-path PATH',
-           description: 'The directory where the cookbook will be created'
+           description: <<-eos
+The directory where the cookbook will be created
+eos
 
     option :readme_format,
            short: '-r FORMAT',
            long: '--readme-format FORMAT',
            description: <<-eos
-    Format of the README file, supported formats are 'md' and'rdoc'
+Format of the README file, supported formats are 'md' and'rdoc'
 eos
 
     option :cookbook_license,
            short: '-I LICENSE',
            long: '--license LICENSE',
-           description: 'License apachev2, gplv2, gplv3, mit or none'
+           description: <<-eos
+License apachev2, gplv2, gplv3, mit or none
+eos
 
     option :cookbook_copyright,
            short: '-C COPYRIGHT',
            long: '--copyright COPYRIGHT',
-           description: 'Name of Copyright holder'
+           description: <<-eos
+Name of Copyright holder
+eos
 
     option :cookbook_email,
            short: '-m EMAIL',
            long: '--email EMAIL',
-           description: 'Email address of cookbook maintainer'
+           description: <<-eos
+Email address of cookbook maintainer
+eos
 
     def run
       self.config = Chef::Config.merge!(config)
@@ -57,7 +65,7 @@ eos
         copyright: cookbook_copyright,
         email: cookbook_email,
         license: cookbook_license,
-        license_name: cookbook_license_name(cookbook_license),
+        license_name: cookbook_license_name,
         readme_format: cookbook_readme_format
       }
 
@@ -142,6 +150,23 @@ eos
       end
     end
 
+    def cookbook_license_name
+      case cookbook_license
+      when 'apachev2'
+        'Apache 2.0'
+      when 'gplv2'
+        'GNU Public License 2.0'
+      when 'gplv3'
+        'GNU Public License 3.0'
+      when 'mit'
+        'MIT'
+      when 'none'
+        'All rights reserved'
+      end
+    end
+
+    protected
+
     def render_template(template_directory, file_name, params)
       File.open(
         File.join(
@@ -184,21 +209,6 @@ eos
 
     def cookbook_readme_format
       ((config[:readme_format] != 'false') && config[:readme_format]) || 'md'
-    end
-
-    def cookbook_license_name(license)
-      case license
-      when 'apachev2'
-        'Apache 2.0'
-      when 'gplv2'
-        'GNU Public License 2.0'
-      when 'gplv3'
-        'GNU Public License 3.0'
-      when 'mit'
-        'MIT'
-      when 'none'
-        'All rights reserved'
-      end
     end
   end
 end

@@ -209,23 +209,28 @@ describe KnifeSkeleton::SkeletonCreate do
 
   describe 'cookbook_license_name' do
     it 'should test with apache2 license' do
-      expect(@knife.cookbook_license_name('apachev2')).to eq('Apache 2.0')
+      @knife.config = { cookbook_license: 'apachev2' }
+      expect(@knife.cookbook_license_name).to eq('Apache 2.0')
     end
 
     it 'should test with gplv2 license' do
-      expect(@knife.cookbook_license_name('gplv2')).to eq('GNU Public License 2.0')
+      @knife.config = { cookbook_license: 'gplv2' }
+      expect(@knife.cookbook_license_name).to eq('GNU Public License 2.0')
     end
 
     it 'should test with gplv3 license' do
-      expect(@knife.cookbook_license_name('gplv3')).to eq('GNU Public License 3.0')
+      @knife.config = { cookbook_license: 'gplv3' }
+      expect(@knife.cookbook_license_name).to eq('GNU Public License 3.0')
     end
 
     it 'should test with mit license' do
-      expect(@knife.cookbook_license_name('mit')).to eq('MIT')
+      @knife.config = { cookbook_license: 'mit' }
+      expect(@knife.cookbook_license_name).to eq('MIT')
     end
 
     it 'should test with none license' do
-      expect(@knife.cookbook_license_name('none')).to eq('All rights reserved')
+      @knife.config = { cookbook_license: 'none' }
+      expect(@knife.cookbook_license_name).to eq('All rights reserved')
     end
   end
 end
