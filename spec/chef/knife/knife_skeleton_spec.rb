@@ -47,14 +47,16 @@ describe KnifeSkeleton::SkeletonCreate do
         @dir,
         @knife.name_args.first
       )
-      @knife.should_receive(:create_cookbook_templates).with(
-        @dir,
-        @knife.name_args.first,
-        'YOUR_COMPANY_NAME',
-        'YOUR_EMAIL',
-        'none',
-        'md'
-      )
+      params = {
+        cookbook_path: @dir,
+        cookbook_name: @knife.name_args.first,
+        copyright: 'YOUR_COMPANY_NAME',
+        email: 'YOUR_EMAIL',
+        license: 'none',
+        license_name: 'All rights reserved',
+        readme_format: 'md'
+      }
+      @knife.should_receive(:create_cookbook_templates).with(params)
       @knife.run
     end
 
@@ -64,7 +66,7 @@ describe KnifeSkeleton::SkeletonCreate do
         cookbook_path: @dir,
         cookbook_copyright: 'Got',
         cookbook_email: 'pierre.rambaud86@gmail.com',
-        cookbook_license: 'lgplv3'
+        cookbook_license: 'gplv3'
       }
       @knife.should_receive(:create_cookbook_directories).with(
         @dir,
@@ -74,14 +76,16 @@ describe KnifeSkeleton::SkeletonCreate do
         @dir,
         @knife.name_args.first
       )
-      @knife.should_receive(:create_cookbook_templates).with(
-        @dir,
-        @knife.name_args.first,
-        'Got',
-        'pierre.rambaud86@gmail.com',
-        'lgplv3',
-        'md'
-      )
+      params = {
+        cookbook_path: @dir,
+        cookbook_name: @knife.name_args.first,
+        copyright: 'Got',
+        email: 'pierre.rambaud86@gmail.com',
+        license: 'gplv3',
+        license_name: 'GNU Public License 3.0',
+        readme_format: 'md'
+      }
+      @knife.should_receive(:create_cookbook_templates).with(params)
       @knife.run
     end
 
@@ -101,14 +105,16 @@ describe KnifeSkeleton::SkeletonCreate do
         @dir,
         @knife.name_args.first
       )
-      @knife.should_receive(:create_cookbook_templates).with(
-        @dir,
-        @knife.name_args.first,
-        'Got',
-        'pierre.rambaud86@gmail.com',
-        'none',
-        'md'
-      )
+      params = {
+        cookbook_path: @dir,
+        cookbook_name: @knife.name_args.first,
+        copyright: 'Got',
+        email: 'pierre.rambaud86@gmail.com',
+        license: 'none',
+        license_name: 'All rights reserved',
+        readme_format: 'md'
+      }
+      @knife.should_receive(:create_cookbook_templates).with(params)
       @knife.run
     end
 
@@ -128,14 +134,16 @@ describe KnifeSkeleton::SkeletonCreate do
         @dir,
         @knife.name_args.first
       )
-      @knife.should_receive(:create_cookbook_templates).with(
-        @dir,
-        @knife.name_args.first,
-        'Got',
-        'pierre.rambaud86@gmail.com',
-        'none',
-        'md'
-      )
+      params = {
+        cookbook_path: @dir,
+        cookbook_name: @knife.name_args.first,
+        copyright: 'Got',
+        email: 'pierre.rambaud86@gmail.com',
+        license: 'none',
+        license_name: 'All rights reserved',
+        readme_format: 'md'
+      }
+      @knife.should_receive(:create_cookbook_templates).with(params)
       @knife.run
     end
 
@@ -196,6 +204,28 @@ describe KnifeSkeleton::SkeletonCreate do
         file_name
       )
       expect(File.exist?(file_path)).to be_truthy
+    end
+  end
+
+  describe 'cookbook_license_name' do
+    it 'should test with apache2 license' do
+      expect(@knife.cookbook_license_name('apachev2')).to eq('Apache 2.0')
+    end
+
+    it 'should test with gplv2 license' do
+      expect(@knife.cookbook_license_name('gplv2')).to eq('GNU Public License 2.0')
+    end
+
+    it 'should test with gplv3 license' do
+      expect(@knife.cookbook_license_name('gplv3')).to eq('GNU Public License 3.0')
+    end
+
+    it 'should test with mit license' do
+      expect(@knife.cookbook_license_name('mit')).to eq('MIT')
+    end
+
+    it 'should test with none license' do
+      expect(@knife.cookbook_license_name('none')).to eq('All rights reserved')
     end
   end
 end

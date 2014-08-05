@@ -51,23 +51,22 @@ eos
                              eos
       end
 
-      cookbook_path = File.expand_path(Array(config[:cookbook_path]).first)
-      cookbook_name = @name_args.first
-      copyright = cookbook_copyright
-      email = cookbook_email
-      license = cookbook_license
-      readme_format = cookbook_readme_format
+      params = {
+        cookbook_path: File.expand_path(Array(config[:cookbook_path]).first),
+        cookbook_name: @name_args.first,
+        copyright: cookbook_copyright,
+        email: cookbook_email,
+        license: cookbook_license,
+        license_name: cookbook_license_name(cookbook_license),
+        readme_format: cookbook_readme_format
+      }
 
-      create_cookbook_directories(cookbook_path, cookbook_name)
-      create_cookbook_files(cookbook_path, cookbook_name)
-      create_cookbook_templates(
-        cookbook_path,
-        cookbook_name,
-        copyright,
-        email,
-        license,
-        readme_format
+      create_cookbook_directories(
+        params[:cookbook_path],
+        params[:cookbook_name]
       )
+      create_cookbook_files(params[:cookbook_path], params[:cookbook_name])
+      create_cookbook_templates(params)
     end
 
     def create_cookbook_directories(cookbook_path, cookbook_name)
@@ -93,46 +92,17 @@ eos
       end
     end
 
-    def create_cookbook_templates(
-      cookbook_path,
-      cookbook_name,
-      copyright,
-      email,
-      license,
-      readme_format
-    )
+    def create_cookbook_templates(params)
       template_directory = File.expand_path(
         '../../../../templates',
         Pathname.new(__FILE__).realpath
       )
 
-      license_name = case license
-                     when "apachev2"
-                       "Apache 2.0"
-                     when "gplv2"
-                       "GNU Public License 2.0"
-                     when "gplv3"
-                       "GNU Public License 3.0"
-                     when "mit"
-                       "MIT"
-                     when "none"
-                       "All rights reserved"
-                     end
-      params = {
-        cookbook_path: cookbook_path,
-        cookbook_name: cookbook_name,
-        copyright: copyright,
-        email: email,
-        license: license,
-        license_name: license_name,
-        readme_format: readme_format
-      }
-
       %W(
-        CHANGELOG.#{readme_format}
+        CHANGELOG.#{params[:readme_format]}
         .kitchen.yml
         metadata.rb
-        README.#{readme_format}
+        README.#{params[:readme_format]}
         recipes/default.rb
         spec/default_spec.rb
         spec/spec_helper.rb
@@ -214,6 +184,21 @@ eos
 
     def cookbook_readme_format
       ((config[:readme_format] != 'false') && config[:readme_format]) || 'md'
+    end
+
+    def cookbook_license_name(license)
+      case license
+      when 'apachev2'
+        'Apache 2.0'
+      when 'gplv2'
+        'GNU Public License 2.0'
+      when 'gplv3'
+        'GNU Public License 3.0'
+      when 'mit'
+        'MIT'
+      when 'none'
+        'All rights reserved'
+      end
     end
   end
 end
