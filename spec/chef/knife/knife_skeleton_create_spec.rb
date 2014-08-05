@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
-require 'chef/knife/skeleton'
+require 'chef/knife/skeleton_create'
 require 'fakefs/spec_helpers'
 
 describe KnifeSkeleton::SkeletonCreate do
