@@ -224,7 +224,7 @@ eos
       )
 
       if File.exist?(dst)
-        ui.warning("#{file_name} already exists")
+        ui.warn("'#{file_name}' already exists")
       else
         ui.msg("Create '#{file_name}'")
         FileUtils.cp(
@@ -256,7 +256,7 @@ eos
       )
 
       if File.exist?(dst)
-        ui.warning("#{file_name} already exists")
+        ui.warn("'#{file_name}' already exists")
       else
         ui.msg("Create '#{file_name}'")
         File.open(
