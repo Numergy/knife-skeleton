@@ -3,11 +3,11 @@ require 'spec_helper'
 require 'chef/knife/skeleton_create'
 require 'fakefs/spec_helpers'
 
-describe KnifeSkeleton::SkeletonCreate do
+describe Knife::SkeletonCreate do
   include FakeFS::SpecHelpers
 
   before(:each) do
-    @knife = KnifeSkeleton::SkeletonCreate.new
+    @knife = Knife::SkeletonCreate.new
     @knife.config = {}
     @knife.name_args = ['foobar']
     @stdout = StringIO.new

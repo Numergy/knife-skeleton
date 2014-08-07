@@ -3,7 +3,7 @@ require 'chef/knife'
 require 'pathname'
 require 'knife_skeleton/template'
 
-module KnifeSkeleton
+module Knife
   # Cookbook class
   class SkeletonCreate < Chef::Knife
     banner 'knife skeleton create COOKOOK (options)'
@@ -264,7 +264,7 @@ eos
           'w+'
         ) do |file|
           file.write(
-            Template.render(
+            KnifeSkeleton::Template.render(
               File.read(
                 File.join(
                   templates_directory,
