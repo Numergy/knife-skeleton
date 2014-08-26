@@ -1,6 +1,5 @@
 .project
 .bundle/
-.kitchen
 .vagrant
 .coverage/
 *.swp

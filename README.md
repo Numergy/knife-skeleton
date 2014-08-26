@@ -5,7 +5,7 @@ Knife plugin to create skeleton integrating chefspec, rubocop, foodcritic, knife
 ##Installation
 
 ```bash
-git clone ssh://git@stash.numer.gy:7999/cd/knife-skeleton.git
+git clone https://github.com/Numergy/knife-skeleton.git
 cd knife-skeleton
 bundle install
 rake install
@@ -48,3 +48,13 @@ knife skeleton create my-cookbook -o /tmp/cookbooks
 
 ##Motivation
 The current "knife cookbook create" does not include tests, and many of us need to use chefspec, checkstyle and kitchen.
+
+## License and Authors
+
+Authors: Pierre Rambaud <pierre.rambaud@numergy.com>
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
