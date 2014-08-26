@@ -45,7 +45,8 @@ eos
 
     # Public: Knife skeleton create runner
     #
-    # Returns void
+    # @return [Void]
+    #
     def run
       self.config = Chef::Config.merge!(config)
       if @name_args.length < 1
@@ -94,7 +95,8 @@ eos
     #   cookbook_license_name
     #   # => 'GNU Public LIcense 3.0'
     #
-    # Returns string
+    # @return [String]
+    #
     def cookbook_license_name
       case cookbook_license
       when 'apachev2'
@@ -114,14 +116,14 @@ eos
 
     # Protected: Create cookbook directories
     #
-    # cookbook_path - Cookbook path
-    # cookbook_name - Cookbook name
-    #
     # Examples:
     #
     #   create_cookbook_directories('/tmp', 'my-cookbook')
     #
-    # Returns void
+    # @param [String] cookbook_path Cookbook path
+    # @param [String] cookbook_name Cookbook name
+    # @return [Void]
+    #
     def create_cookbook_directories(cookbook_path, cookbook_name)
       ui.msg("** Create cookbook #{cookbook_name} into #{cookbook_path}")
 
@@ -147,13 +149,13 @@ eos
 
     # Protected: Create cookbook files from templates
     #
-    # params - An Hash of parameters to use for binding template
-    #
     # Examples:
     #
     #   create_cookbook_templates({ cookbook_path: '/tmp', title: 'GoT' })
     #
-    # Returns void
+    # @params [Hash] params An Hash of parameters to use for binding template
+    # @return [Void]
+    #
     def create_cookbook_templates(params)
       params[:license_content] = File.read(
         File.join(
@@ -182,14 +184,14 @@ eos
 
     # Protected: Copy all files into the cookbook
     #
-    # cookbook_path - Cookbook path
-    # cookbook_name - Cookbook name
-    #
     # Examples:
     #
     #   create_cookbook_files('/tmp', 'my-cookbook')
     #
-    # Returns void
+    # @param [String] cookbook_path Cookbook path
+    # @param [String] cookbook_name Cookbook name
+    # @return [Void]
+    #
     def create_cookbook_files(
       cookbook_path,
       cookbook_name
@@ -208,15 +210,15 @@ eos
 
     # Protected: Copy files
     #
-    # cookbook_path - Cookbook path
-    # cookbook_name - Cookbook name
-    # file_name     - File name to used without erb extension
-    #
     # Examples:
     #
     #   copy_file('/tmp', '/cookbooks', 'my-cookbook', 'README.md')
     #
-    # Returns void
+    # @param [String] cookbook_path Cookbook path
+    # @param [String] cookbook_name Cookbook name
+    # @param [String] file_name    File name to used without erb extension
+    # @return [Void]
+    #
     def copy_file(cookbook_path, cookbook_name, file_name)
       dst = File.join(
         cookbook_path,
@@ -240,14 +242,14 @@ eos
 
     # Protected: Render template
     #
-    # file_name - File name to used without erb extension
-    # params    - Binding parameters
-    #
     # Examples:
     #
     #   render_template('/tmp', 'my-file.rb', { title: 'GoT' })
     #
-    # Returns void
+    # @param [String] file_name File name to used without erb extension
+    # @param [Hash]   params    Binding parameters
+    # @return [void]
+    #
     def render_template(file_name, params)
       dst = File.join(
         params[:cookbook_path],
@@ -280,8 +282,6 @@ eos
 
     # Protected: Test if parameter is empty
     #
-    # parameter - The tested parameter
-    #
     # Examples:
     #
     #   parameter_empty?('my string')
@@ -289,28 +289,33 @@ eos
     #   parameter_empty?('')
     #   # => true
     #
-    # Returns string
+    # @param [Mixed] parameter The tested parameter
+    # @return [String]
+    #
     def parameter_empty?(parameter)
       parameter.nil? || parameter.empty?
     end
 
     # Protected: Get cookbook copyright
     #
-    # Returns string
+    # @return [String]
+    #
     def cookbook_copyright
       config[:cookbook_copyright] || 'YOUR_COMPANY_NAME'
     end
 
     # Protected: Get maintener email
     #
-    # Returns string
+    # @return [String]
+    #
     def cookbook_email
       config[:cookbook_email] || 'YOUR_EMAIL'
     end
 
     # Protected: Get license name
     #
-    # Returns string
+    # @return [String]
+    #
     def cookbook_license
       ((config[:cookbook_license] != 'false') &&
         config[:cookbook_license]) || 'none'
@@ -318,14 +323,16 @@ eos
 
     # Protected: Get readme format
     #
-    # Returns string
+    # @return [String]
+    #
     def cookbook_readme_format
       ((config[:readme_format] != 'false') && config[:readme_format]) || 'md'
     end
 
     # Protected: Get files directory
     #
-    # Returns string
+    # @return [String]
+    #
     def files_directory
       File.expand_path(
         '../../../../files',
@@ -335,7 +342,8 @@ eos
 
     # Protected: Get templates directory
     #
-    # Returns string
+    # @return [String]
+    #
     def templates_directory
       File.expand_path(
         '../../../../templates',
