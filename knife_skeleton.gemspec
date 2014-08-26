@@ -19,12 +19,12 @@ eos
   s.require_paths = ['lib']
   s.version       = KnifeSkeleton::VERSION
 
-  s.add_dependency 'chef'
-  s.add_dependency 'erubis'
+  s.add_dependency 'chef', '~> 0.10'
+  s.add_dependency 'erubis', '~> 0.2'
 
-  s.add_development_dependency 'rake'
+  s.add_development_dependency 'rake', '~> 10'
   s.add_development_dependency 'rspec', '~> 2.14'
-  s.add_development_dependency 'rubocop'
-  s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'fakefs'
+  s.add_development_dependency 'rubocop', '~> 0.25'
+  s.add_development_dependency 'simplecov', '~> 0.9'
+  s.add_development_dependency 'fakefs', '~> 0.5'
 end
