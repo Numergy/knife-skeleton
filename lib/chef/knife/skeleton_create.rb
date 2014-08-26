@@ -112,9 +112,7 @@ eos
       end
     end
 
-    protected
-
-    # Protected: Create cookbook directories
+    # Create cookbook directories
     #
     # Examples:
     #
@@ -147,7 +145,7 @@ eos
       end
     end
 
-    # Protected: Create cookbook files from templates
+    # Create cookbook files from templates
     #
     # Examples:
     #
@@ -182,7 +180,7 @@ eos
       end
     end
 
-    # Protected: Copy all files into the cookbook
+    # Copy all files into the cookbook
     #
     # Examples:
     #
@@ -208,7 +206,7 @@ eos
       end
     end
 
-    # Protected: Copy files
+    # Copy files
     #
     # Examples:
     #
@@ -240,7 +238,7 @@ eos
       end
     end
 
-    # Protected: Render template
+    # Render template
     #
     # Examples:
     #
@@ -280,7 +278,7 @@ eos
       end
     end
 
-    # Protected: Test if parameter is empty
+    # Test if parameter is empty
     #
     # Examples:
     #
@@ -296,7 +294,7 @@ eos
       parameter.nil? || parameter.empty?
     end
 
-    # Protected: Get cookbook copyright
+    # Get cookbook copyright
     #
     # @return [String]
     #
@@ -304,7 +302,7 @@ eos
       config[:cookbook_copyright] || 'YOUR_COMPANY_NAME'
     end
 
-    # Protected: Get maintener email
+    # Get maintener email
     #
     # @return [String]
     #
@@ -312,7 +310,7 @@ eos
       config[:cookbook_email] || 'YOUR_EMAIL'
     end
 
-    # Protected: Get license name
+    # Get license name
     #
     # @return [String]
     #
@@ -321,7 +319,7 @@ eos
         config[:cookbook_license]) || 'none'
     end
 
-    # Protected: Get readme format
+    # Get readme format
     #
     # @return [String]
     #
@@ -329,7 +327,7 @@ eos
       ((config[:readme_format] != 'false') && config[:readme_format]) || 'md'
     end
 
-    # Protected: Get files directory
+    # Get files directory
     #
     # @return [String]
     #
@@ -340,7 +338,7 @@ eos
       )
     end
 
-    # Protected: Get templates directory
+    # Get templates directory
     #
     # @return [String]
     #

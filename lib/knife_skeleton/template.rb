@@ -8,7 +8,7 @@ module KnifeSkeleton
     #
     # Examples:
     #
-    #   create_cookbook_directories('Hello <%= title %>', {title: 'GoT'})
+    #   KnifeSkeleton::Template.render('Hello <%= title %>', {title: 'GoT'})
     #   # => "Hello GoT"
     #
     # @param [String] template Template string to used for rendering
