@@ -158,10 +158,11 @@ describe Knife::SkeletonCreate do
 
       FakeFS::FileSystem.clone(
         File.expand_path(
-          '.',
+          '../../../../',
           Pathname.new(__FILE__).realpath
         )
       )
+
       @knife.ui.should_receive(:msg).with('** Create cookbook foobar into /tmp')
       @knife.ui.should_receive(:msg).with("** Create 'Berksfile'")
       @knife.ui.should_receive(:msg).with("** Create 'Gemfile'")
