@@ -1,9 +1,15 @@
-#Knife skeleton
+#Knife skeleton | [![Build Status](https://travis-ci.org/Numergy/knife-skeleton.svg?branch=master)](https://travis-ci.org/Numergy/knife-skeleton)
 
 Knife plugin to create skeleton integrating chefspec, rubocop, foodcritic, knife test and kitchen.
 
 ##Installation
 
+With rubygems:
+```bash
+gem install knife-skeleton
+```
+
+With github:
 ```bash
 git clone https://github.com/Numergy/knife-skeleton.git
 cd knife-skeleton
@@ -51,7 +57,9 @@ The current "knife cookbook create" does not include tests, and many of us need 
 
 ## License and Authors
 
-Authors: Pierre Rambaud <pierre.rambaud@numergy.com>
+Authors:
+- Pierre Rambaud <pierre.rambaud@numergy.com>
+- Antoine Rouyer <antoine.rouyer@numergy.com>
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
