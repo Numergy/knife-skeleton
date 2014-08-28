@@ -126,6 +126,7 @@ eos
       ui.msg("** Create cookbook #{cookbook_name} into #{cookbook_path}")
 
       %w(
+        attributes
         definitions
         libraries
         providers
@@ -170,6 +171,7 @@ eos
         CHANGELOG.#{params[:readme_format]}
         README.#{params[:readme_format]}
         .kitchen.yml
+        attributes/default.rb
         recipes/default.rb
         spec/default_spec.rb
         spec/spec_helper.rb

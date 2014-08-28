@@ -174,6 +174,7 @@ describe Knife::SkeletonCreate do
       @knife.ui.should_receive(:msg).with("** Create 'CHANGELOG.md'")
       @knife.ui.should_receive(:msg).with("** Create 'metadata.rb'")
       @knife.ui.should_receive(:msg).with("** Create 'README.md'")
+      @knife.ui.should_receive(:msg).with("** Create 'attributes/default.rb'")
       @knife.ui.should_receive(:msg).with("** Create 'recipes/default.rb'")
       @knife.ui.should_receive(:msg).with("** Create 'spec/default_spec.rb'")
       @knife.ui.should_receive(:msg).with("** Create 'spec/spec_helper.rb'")
@@ -195,6 +196,8 @@ describe Knife::SkeletonCreate do
       @knife.ui.should_receive(:warn).with("'CHANGELOG.md' already exists")
       @knife.ui.should_receive(:warn).with("'README.md' already exists")
       @knife.ui.should_receive(:warn).with(
+        "'attributes/default.rb' already exists")
+      @knife.ui.should_receive(:warn).with(
         "'recipes/default.rb' already exists")
       @knife.ui.should_receive(:warn).with(
         "'spec/default_spec.rb' already exists")
@@ -207,6 +210,7 @@ describe Knife::SkeletonCreate do
       @knife.run
 
       %w(
+        attributes
         definitions
         libraries
         providers
@@ -230,6 +234,7 @@ describe Knife::SkeletonCreate do
         Strainerfile
         CHANGELOG.md
         README.md
+        attributes/default.rb
         recipes/default.rb
         spec/default_spec.rb
         spec/spec_helper.rb
