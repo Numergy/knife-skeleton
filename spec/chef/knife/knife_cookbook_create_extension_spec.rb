@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
-require 'chef/knife/skeleton_create'
+require 'chef/knife/cookbook_create_extension'
 require 'fakefs/spec_helpers'
 
-describe Knife::SkeletonCreate do
+describe Chef::Knife::CookbookCreate do
   include FakeFS::SpecHelpers
 
   before(:each) do
-    @knife = Knife::SkeletonCreate.new
+    @knife = Chef::Knife::CookbookCreate.new
     @knife.config = {}
     @knife.name_args = ['foobar']
     @stdout = StringIO.new
