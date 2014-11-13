@@ -16,3 +16,6 @@ ClassLength:
 ParameterLists:
   Exclude:
     - lib/**/*
+Metrics/AbcSize:
+  Exclude:
+    - lib/**/*
