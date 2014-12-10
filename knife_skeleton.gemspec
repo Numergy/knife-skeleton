@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 require File.expand_path('../lib/knife_skeleton/version', __FILE__)
 
 Gem::Specification.new do |s|
@@ -19,7 +19,9 @@ eos
   s.require_paths = ['lib']
   s.version       = KnifeSkeleton::VERSION
 
-  s.add_dependency 'chef', '~> 11'
+  s.required_ruby_version = '>=2.0.0'
+
+  s.add_dependency 'chef'
   s.add_dependency 'erubis', '~> 2.7'
 
   s.add_development_dependency 'rake', '~> 10'
