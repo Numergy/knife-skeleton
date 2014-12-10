@@ -5,8 +5,7 @@ Gem::Specification.new do |s|
   s.authors       = ['Pierre Rambaud', 'Antoine Rouyer']
   s.email         = ['pierre.rambaud@numergy.com', 'antoine.rouyer@numergy.com']
   s.description   = <<-eos
-Knife plugin to create skeleton with rubocop, chefspec, kitchen,
-strainer, etc...
+Knife plugin to create skeleton with rubocop, chefspec, kitchen, etc...
 eos
   s.summary       = s.description
   s.homepage      = 'https://github.com/Numergy/knife-skeleton'
