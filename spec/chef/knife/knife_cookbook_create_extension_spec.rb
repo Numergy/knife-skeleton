@@ -170,7 +170,7 @@ describe Chef::Knife::CookbookCreate do
       @knife.ui.should_receive(:msg).with("** Create '.travis.yml'")
       @knife.ui.should_receive(:msg).with("** Create '.rubocop.yml'")
       @knife.ui.should_receive(:msg).with("** Create '.kitchen.yml'")
-      @knife.ui.should_receive(:msg).with("** Create 'Strainerfile'")
+      @knife.ui.should_receive(:msg).with("** Create 'Rakefile'")
       @knife.ui.should_receive(:msg).with("** Create 'CHANGELOG.md'")
       @knife.ui.should_receive(:msg).with("** Create 'metadata.rb'")
       @knife.ui.should_receive(:msg).with("** Create 'README.md'")
@@ -191,7 +191,7 @@ describe Chef::Knife::CookbookCreate do
       @knife.ui.should_receive(:warn).with("'.rubocop.yml' already exists")
       @knife.ui.should_receive(:warn).with("'.kitchen.yml' already exists")
       @knife.ui.should_receive(:warn).with("'.travis.yml' already exists")
-      @knife.ui.should_receive(:warn).with("'Strainerfile' already exists")
+      @knife.ui.should_receive(:warn).with("'Rakefile' already exists")
       @knife.ui.should_receive(:warn).with("'metadata.rb' already exists")
       @knife.ui.should_receive(:warn).with("'CHANGELOG.md' already exists")
       @knife.ui.should_receive(:warn).with("'README.md' already exists")
@@ -231,7 +231,7 @@ describe Chef::Knife::CookbookCreate do
         .rubocop.yml
         .travis.yml
         .kitchen.yml
-        Strainerfile
+        Rakefile
         CHANGELOG.md
         README.md
         attributes/default.rb

@@ -196,7 +196,7 @@ eos
           .gitignore
           .rubocop.yml
           .travis.yml
-          Strainerfile
+          Rakefile
         ).each do |file_name|
           copy_file(cookbook_path, cookbook_name, file_name)
         end

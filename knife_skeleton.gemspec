@@ -1,12 +1,11 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 require File.expand_path('../lib/knife_skeleton/version', __FILE__)
 
 Gem::Specification.new do |s|
   s.authors       = ['Pierre Rambaud', 'Antoine Rouyer']
   s.email         = ['pierre.rambaud@numergy.com', 'antoine.rouyer@numergy.com']
   s.description   = <<-eos
-Knife plugin to create skeleton with rubocop, chefspec, kitchen,
-strainer, etc...
+Knife plugin to create skeleton with rubocop, chefspec, kitchen, etc...
 eos
   s.summary       = s.description
   s.homepage      = 'https://github.com/Numergy/knife-skeleton'
@@ -19,7 +18,9 @@ eos
   s.require_paths = ['lib']
   s.version       = KnifeSkeleton::VERSION
 
-  s.add_dependency 'chef', '~> 11'
+  s.required_ruby_version = '>=2.0.0'
+
+  s.add_dependency 'chef'
   s.add_dependency 'erubis', '~> 2.7'
 
   s.add_development_dependency 'rake', '~> 10'
