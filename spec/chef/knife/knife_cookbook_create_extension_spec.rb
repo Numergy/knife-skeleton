@@ -168,6 +168,7 @@ describe Chef::Knife::CookbookCreate do
       @knife.ui.should_receive(:msg).with("** Create 'Gemfile'")
       @knife.ui.should_receive(:msg).with("** Create '.gitignore'")
       @knife.ui.should_receive(:msg).with("** Create '.travis.yml'")
+      @knife.ui.should_receive(:msg).with("** Create '.chefignore'")
       @knife.ui.should_receive(:msg).with("** Create '.rubocop.yml'")
       @knife.ui.should_receive(:msg).with("** Create '.kitchen.yml'")
       @knife.ui.should_receive(:msg).with("** Create 'Rakefile'")
@@ -191,6 +192,7 @@ describe Chef::Knife::CookbookCreate do
       @knife.ui.should_receive(:warn).with("'.rubocop.yml' already exists")
       @knife.ui.should_receive(:warn).with("'.kitchen.yml' already exists")
       @knife.ui.should_receive(:warn).with("'.travis.yml' already exists")
+      @knife.ui.should_receive(:warn).with("'.chefignore' already exists")
       @knife.ui.should_receive(:warn).with("'Rakefile' already exists")
       @knife.ui.should_receive(:warn).with("'metadata.rb' already exists")
       @knife.ui.should_receive(:warn).with("'CHANGELOG.md' already exists")
@@ -230,6 +232,7 @@ describe Chef::Knife::CookbookCreate do
         .gitignore
         .rubocop.yml
         .travis.yml
+        .chefignore
         .kitchen.yml
         Rakefile
         CHANGELOG.md
