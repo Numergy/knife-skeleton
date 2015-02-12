@@ -76,10 +76,8 @@ eos
           readme_format: cookbook_readme_format
         }
 
-        create_cookbook_directories(
-                                    params[:cookbook_path],
-                                    params[:cookbook_name]
-                                    )
+        create_cookbook_directories(params[:cookbook_path],
+                                    params[:cookbook_name])
         create_cookbook_files(params[:cookbook_path], params[:cookbook_name])
         create_cookbook_templates(params)
       end
@@ -139,8 +137,7 @@ eos
           files/default
           templates/default
           test/integration/default/serverspec).each do |dir|
-          FileUtils.mkdir_p(File.join(
-                                      cookbook_path,
+          FileUtils.mkdir_p(File.join(cookbook_path,
                                       cookbook_name,
                                       dir))
         end
@@ -224,8 +221,7 @@ eos
         else
           ui.msg("** Create '#{file_name}'")
           FileUtils.cp(File
-                         .join(
-                               files_directory,
+                         .join(files_directory,
                                file_name.gsub(/^\./, '')),
                        dst)
         end
@@ -252,8 +248,7 @@ eos
           ui.msg("** Create '#{file_name}'")
           File.open(dst, 'w+') do |file|
             file.write(KnifeSkeleton::Template
-                         .render(File.read(File.join(
-                                                     templates_directory,
+                         .render(File.read(File.join(templates_directory,
                                                      file_name + '.erb')),
                                  params))
           end
