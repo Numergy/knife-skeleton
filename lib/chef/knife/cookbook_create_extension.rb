@@ -15,7 +15,7 @@ class Chef
              description: <<-eos
 The directory where the cookbook will be created
 eos
-             )
+            )
 
       option(:readme_format,
              short: '-r FORMAT',
@@ -23,28 +23,28 @@ eos
              description: <<-eos
 Format of the README file, supported formats are 'md', 'rdoc' and 'txt'
 eos
-             )
+            )
       option(:cookbook_license,
              short: '-I LICENSE',
              long: '--license LICENSE',
              description: <<-eos
 License apachev2, gplv2, gplv3, mit or none
 eos
-             )
+            )
       option(:cookbook_copyright,
              short: '-C COPYRIGHT',
              long: '--copyright COPYRIGHT',
              description: <<-eos
 Name of Copyright holder
 eos
-             )
+            )
       option(:cookbook_email,
              short: '-m EMAIL',
              long: '--email EMAIL',
              description: <<-eos
 Email address of cookbook maintainer
 eos
-             )
+            )
 
       # Public: Knife skeleton create runner
       #
@@ -156,7 +156,7 @@ eos
         params[:license_content] = File.read(File.join(files_directory,
                                                        'licenses',
                                                        params[:license])
-                                             ) if params[:license] != 'none'
+                                            ) if params[:license] != 'none'
 
         params[:license_content] = '' unless params[:license] != 'none'
 
