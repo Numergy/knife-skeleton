@@ -4,9 +4,9 @@ driver_config:
   require_chef_omnibus: true
 
 platforms:
-  - name: ubuntu-14.04
+- name: ubuntu-14.04
 
 suites:
-  - name: 'default'
-    run_list:
-      - recipe[<%= cookbook_name %>]
+- name: <%= cookbook_name %>-default
+  run_list:
+  - recipe[<%= cookbook_name %>]
