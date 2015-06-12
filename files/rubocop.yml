@@ -2,6 +2,7 @@ AllCops:
   Include:
     - metadata.rb
     - '**/Gemfile'
+    - '**/Guardfile'
     - attributes/**/*
     - definitions/**/*
     - libraries/**/*

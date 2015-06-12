@@ -190,6 +190,7 @@ eos
         %w(
           Berksfile
           Gemfile
+          Guardfile
           .gitignore
           .rubocop.yml
           .travis.yml

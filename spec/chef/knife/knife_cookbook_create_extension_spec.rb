@@ -166,6 +166,7 @@ describe Chef::Knife::CookbookCreate do
       @knife.ui.should_receive(:msg).with('** Create cookbook foobar into /tmp')
       @knife.ui.should_receive(:msg).with("** Create 'Berksfile'")
       @knife.ui.should_receive(:msg).with("** Create 'Gemfile'")
+      @knife.ui.should_receive(:msg).with("** Create 'Guardfile'")
       @knife.ui.should_receive(:msg).with("** Create '.gitignore'")
       @knife.ui.should_receive(:msg).with("** Create '.travis.yml'")
       @knife.ui.should_receive(:msg).with("** Create '.chefignore'")
@@ -188,6 +189,7 @@ describe Chef::Knife::CookbookCreate do
       @knife.ui.should_receive(:msg).with('** Create cookbook foobar into /tmp')
       @knife.ui.should_receive(:warn).with("'Berksfile' already exists")
       @knife.ui.should_receive(:warn).with("'Gemfile' already exists")
+      @knife.ui.should_receive(:warn).with("'Guardfile' already exists")
       @knife.ui.should_receive(:warn).with("'.gitignore' already exists")
       @knife.ui.should_receive(:warn).with("'.rubocop.yml' already exists")
       @knife.ui.should_receive(:warn).with("'.kitchen.yml' already exists")
@@ -229,6 +231,7 @@ describe Chef::Knife::CookbookCreate do
         metadata.rb
         Berksfile
         Gemfile
+        Guardfile
         .gitignore
         .rubocop.yml
         .travis.yml
