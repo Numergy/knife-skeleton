@@ -192,6 +192,7 @@ eos
           Gemfile
           Guardfile
           .gitignore
+          .rspec
           .rubocop.yml
           .travis.yml
           .chefignore

@@ -43,7 +43,7 @@ namespace :test do
   end
 
   task :chefspec do
-    bundle_exec 'rspec spec --color --format documentation'
+    bundle_exec :rspec
   end
 
   task :kitchen do
