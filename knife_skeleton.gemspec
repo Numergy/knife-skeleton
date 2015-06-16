@@ -27,5 +27,5 @@ eos
   s.add_development_dependency 'rspec', '~> 2.14'
   s.add_development_dependency 'rubocop', '~> 0.25'
   s.add_development_dependency 'simplecov', '~> 0.9'
-  s.add_development_dependency 'fakefs', '>= 0.5.3'
+  s.add_development_dependency 'fakefs', '>= 0.6.7'
 end

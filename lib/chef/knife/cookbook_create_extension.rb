@@ -46,6 +46,14 @@ Email address of cookbook maintainer
 eos
             )
 
+      option(:templates_directory,
+             short: '-t PATH',
+             long: '--template_directory PATH',
+             description: <<-eos
+Define templates directory
+eos
+            )
+
       # Public: Knife skeleton create runner
       #
       # @return [Void]
@@ -78,7 +86,6 @@ eos
 
         create_cookbook_directories(params[:cookbook_path],
                                     params[:cookbook_name])
-        create_cookbook_files(params[:cookbook_path], params[:cookbook_name])
         create_cookbook_templates(params)
       end
 
@@ -126,20 +133,14 @@ eos
       def create_cookbook_directories(cookbook_path, cookbook_name)
         ui.msg("** Create cookbook #{cookbook_name} into #{cookbook_path}")
 
-        %w(
-          attributes
-          definitions
-          libraries
-          providers
-          recipes
-          resources
-          spec
-          files/default
-          templates/default
-          test/integration/default/serverspec).each do |dir|
+        directories = Dir["#{templates_directory}/**/{.[^\.]*,*}"]
+        directories.select! do |dir|
+          File.directory?(dir)
+        end
+        directories.each do |dir|
           FileUtils.mkdir_p(File.join(cookbook_path,
                                       cookbook_name,
-                                      dir))
+                                      dir.gsub(templates_directory, '')))
         end
       end
 
@@ -149,7 +150,7 @@ eos
       #
       #   create_cookbook_templates({ cookbook_path: '/tmp', title: 'GoT' })
       #
-      # @params [Hash] params An Hash of parameters to use for binding template
+      # @Params [Hash] params An Hash of parameters to use for binding template
       # @return [Void]
       #
       def create_cookbook_templates(params)
@@ -159,73 +160,15 @@ eos
                                             ) if params[:license] != 'none'
 
         params[:license_content] = '' unless params[:license] != 'none'
-
-        %W(
-          metadata.rb
-          CHANGELOG.#{params[:readme_format]}
-          README.#{params[:readme_format]}
-          .kitchen.yml
-          attributes/default.rb
-          recipes/default.rb
-          spec/default_spec.rb
-          spec/spec_helper.rb
-          test/integration/default/serverspec/spec_helper.rb
-          test/integration/default/serverspec/default_spec.rb
-        ).each do |file_name|
-          render_template(file_name, params)
-        end
-      end
-
-      # Copy all files into the cookbook
-      #
-      # Examples:
-      #
-      #   create_cookbook_files('/tmp', 'my-cookbook')
-      #
-      # @param [String] cookbook_path Cookbook path
-      # @param [String] cookbook_name Cookbook name
-      # @return [Void]
-      #
-      def create_cookbook_files(cookbook_path, cookbook_name)
-        %w(
-          Berksfile
-          Gemfile
-          Guardfile
-          .gitignore
-          .rspec
-          .rubocop.yml
-          .travis.yml
-          .chefignore
-          Rakefile
-        ).each do |file_name|
-          copy_file(cookbook_path, cookbook_name, file_name)
-        end
-      end
-
-      # Copy files
-      #
-      # Examples:
-      #
-      #   copy_file('/tmp', '/cookbooks', 'my-cookbook', 'README.md')
-      #
-      # @param [String] cookbook_path Cookbook path
-      # @param [String] cookbook_name Cookbook name
-      # @param [String] file_name    File name to used without erb extension
-      # @return [Void]
-      #
-      def copy_file(cookbook_path, cookbook_name, file_name)
-        dst = File.join(cookbook_path,
-                        cookbook_name,
-                        file_name)
-
-        if File.exist?(dst)
-          ui.warn("'#{file_name}' already exists")
-        else
-          ui.msg("** Create '#{file_name}'")
-          FileUtils.cp(File
-                         .join(files_directory,
-                               file_name.gsub(/^\./, '')),
-                       dst)
+        files = Dir["#{templates_directory}/**/{.[^\.],*}*.erb"] -
+                %w(. ..)
+        files.each do |file_name|
+          short_name = file_name.gsub("#{templates_directory}/", '')
+          short_name = short_name.gsub(/.erb$/, '')
+          ext = File.extname(short_name)
+          next if accepted_readme_format.include?(ext.gsub(/^\./, '')) &&
+                  !short_name.match(/\.#{cookbook_readme_format}$/)
+          render_template(short_name, params)
         end
       end
 
@@ -303,7 +246,17 @@ eos
       # @return [String]
       #
       def cookbook_readme_format
-        ((config[:readme_format] != 'false') && config[:readme_format]) || 'md'
+        ((config[:readme_format] != 'false' &&
+          accepted_readme_format.include?(config[:readme_format])) &&
+         config[:readme_format]) || 'md'
+      end
+
+      # Get accepted readme format
+      #
+      # @return [Array]
+      #
+      def accepted_readme_format
+        %w(rdoc md txt)
       end
 
       # Get files directory
@@ -320,8 +273,12 @@ eos
       # @return [String]
       #
       def templates_directory
-        File.expand_path('../../../../templates',
-                         Pathname.new(__FILE__).realpath)
+        if config[:templates_directory].nil?
+          File.expand_path('../../../../templates',
+                           Pathname.new(__FILE__).realpath)
+        else
+          config[:templates_directory]
+        end
       end
     end
   end

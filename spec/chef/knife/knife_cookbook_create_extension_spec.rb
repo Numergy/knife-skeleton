@@ -31,7 +31,6 @@ describe Chef::Knife::CookbookCreate do
       File.should_receive(:expand_path).with('~/tmp/cookbooks')
       @knife.config = { cookbook_path: '~/tmp/cookbooks' }
       @knife.stub(:create_cookbook_directories)
-      @knife.stub(:create_cookbook_files)
       @knife.stub(:create_cookbook_templates)
       @knife.run
     end
@@ -40,10 +39,6 @@ describe Chef::Knife::CookbookCreate do
       @dir = Dir.tmpdir
       @knife.config = { cookbook_path: @dir }
       @knife.should_receive(:create_cookbook_directories).with(
-        @dir,
-        @knife.name_args.first
-      )
-      @knife.should_receive(:create_cookbook_files).with(
         @dir,
         @knife.name_args.first
       )
@@ -72,10 +67,6 @@ describe Chef::Knife::CookbookCreate do
         @dir,
         @knife.name_args.first
       )
-      @knife.should_receive(:create_cookbook_files).with(
-        @dir,
-        @knife.name_args.first
-      )
       params = {
         cookbook_path: @dir,
         cookbook_name: @knife.name_args.first,
@@ -101,10 +92,6 @@ describe Chef::Knife::CookbookCreate do
         @dir,
         @knife.name_args.first
       )
-      @knife.should_receive(:create_cookbook_files).with(
-        @dir,
-        @knife.name_args.first
-      )
       params = {
         cookbook_path: @dir,
         cookbook_name: @knife.name_args.first,
@@ -127,10 +114,6 @@ describe Chef::Knife::CookbookCreate do
         cookbook_license: 'false'
       }
       @knife.should_receive(:create_cookbook_directories).with(
-        @dir,
-        @knife.name_args.first
-      )
-      @knife.should_receive(:create_cookbook_files).with(
         @dir,
         @knife.name_args.first
       )
@@ -165,12 +148,12 @@ describe Chef::Knife::CookbookCreate do
 
       @knife.ui.should_receive(:msg).with('** Create cookbook foobar into /tmp')
       @knife.ui.should_receive(:msg).with("** Create 'Berksfile'")
+      @knife.ui.should_receive(:msg).with("** Create '.rspec'")
       @knife.ui.should_receive(:msg).with("** Create 'Gemfile'")
       @knife.ui.should_receive(:msg).with("** Create 'Guardfile'")
       @knife.ui.should_receive(:msg).with("** Create '.gitignore'")
       @knife.ui.should_receive(:msg).with("** Create '.travis.yml'")
       @knife.ui.should_receive(:msg).with("** Create '.chefignore'")
-      @knife.ui.should_receive(:msg).with("** Create '.rspec'")
       @knife.ui.should_receive(:msg).with("** Create '.rubocop.yml'")
       @knife.ui.should_receive(:msg).with("** Create '.kitchen.yml'")
       @knife.ui.should_receive(:msg).with("** Create 'Rakefile'")
@@ -217,7 +200,6 @@ describe Chef::Knife::CookbookCreate do
 
       %w(
         attributes
-        definitions
         libraries
         providers
         recipes
@@ -252,6 +234,39 @@ describe Chef::Knife::CookbookCreate do
       ).each do |file_name|
         assert_file_exists(@dir, @knife.name_args.first, file_name)
       end
+    end
+
+    it 'should create cookbook directories from custom templates' do
+      @dir = Dir.tmpdir
+      @knife.config = {
+        cookbook_path: @dir,
+        cookbook_copyright: 'Got',
+        cookbook_email: 'pierre.rambaud86@gmail.com',
+        cookbook_license: 'gplv3',
+        templates_directory: '/tmp/test'
+      }
+
+      FakeFS::FileSystem.clone(
+        File.expand_path(
+          '../../../../',
+          Pathname.new(__FILE__).realpath
+        )
+      )
+
+      FileUtils.mkdir_p('/tmp/test/something')
+      File.open('/tmp/test/something/foobar.erb', 'w') do |file|
+        file.write('nothing')
+      end
+
+      @knife.ui.should_receive(:msg).with('** Create cookbook foobar into /tmp')
+      @knife.ui.should_receive(:msg).with("** Create 'something/foobar'")
+      @knife.run
+      # Run txice to tests warn
+      @knife.ui.should_receive(:msg).with('** Create cookbook foobar into /tmp')
+      @knife.ui.should_receive(:warn).with("'something/foobar' already exists")
+      @knife.run
+
+      assert_file_exists(@dir, @knife.name_args.first, '')
     end
 
     def assert_file_exists(cookbook_path, cookbook_name, file_name)
