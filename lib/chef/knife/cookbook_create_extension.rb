@@ -7,7 +7,7 @@ class Chef
   class Knife
     # Cookbook class
     class CookbookCreate < Chef::Knife
-      banner 'knife skeleton create COOKOOK (options)'
+      banner 'knife skeleton create COOKBOOK (options)'
 
       option(:cookbook_path,
              short: '-o PATH',
