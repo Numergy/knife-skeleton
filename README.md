@@ -27,6 +27,14 @@ There is no usage instructions! Simply having knife-skeleton installed will auto
 
 `knife cookbook create COOKBOOK`
 
+### Custom template
+
+It's also possible to override templates_directory by using `:templates_directory` in your `knife.rb` file.
+You will be able to add empty directories and all `.erb` files while be copied.
+
+Example:
+`knife[:templates_directory] = "PATH"`
+
 ## License and Authors
 
 Authors:
